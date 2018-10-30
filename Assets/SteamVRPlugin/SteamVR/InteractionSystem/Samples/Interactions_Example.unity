@@ -1206,7 +1206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &63783779
 Transform:
   m_ObjectHideFlags: 0
@@ -8353,7 +8353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &721318992
 Transform:
   m_ObjectHideFlags: 0
@@ -22819,7 +22819,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
       propertyPath: useHoverSphere
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 105336, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
       propertyPath: m_IsActive
