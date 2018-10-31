@@ -8353,7 +8353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &721318992
 Transform:
   m_ObjectHideFlags: 0
@@ -20292,6 +20292,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 63783779}
     m_Modifications:
+    - target: {fileID: 114000013436842098, guid: 4d7627d70abb4e247b7d958e6634b2f1,
+        type: 2}
+      propertyPath: onPickUp.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4000014277660454, guid: 4d7627d70abb4e247b7d958e6634b2f1, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.079
@@ -20346,6 +20351,16 @@ Prefab:
         type: 2}
       propertyPath: attachmentFlags
       value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013436842098, guid: 4d7627d70abb4e247b7d958e6634b2f1,
+        type: 2}
+      propertyPath: onPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013436842098, guid: 4d7627d70abb4e247b7d958e6634b2f1,
+        type: 2}
+      propertyPath: onPickUp.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d7627d70abb4e247b7d958e6634b2f1, type: 2}
@@ -22819,7 +22834,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
       propertyPath: useHoverSphere
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 105336, guid: dc06161b6d97feb419f45f03b62e14b9, type: 2}
       propertyPath: m_IsActive

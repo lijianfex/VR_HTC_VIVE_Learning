@@ -1,32 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
+/// <summary>
+/// 简单的交互
+/// </summary>
 public class SampleInteractable : MonoBehaviour {
 
-    private TextMesh textMesh;
-    private Vector3 oldPosition;
-    private Quaternion oldRotation;
+    public TextMesh textMesh;//显示文字，输出状态
 
-    private float attachTime;
+    private Vector3 oldPosition; //记录原来的位置，在分离时回到原来的位置。
+    private Quaternion oldRotation;//记录原来的旋转，在分离时回到原来的旋转角度
 
+    private float attachTime; //被抓取附着的时间
+
+    //附着的类型标志
     private Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & (~Hand.AttachmentFlags.SnapOnAttach) & (~Hand.AttachmentFlags.DetachOthers) & (~Hand.AttachmentFlags.VelocityMovement);
 
+    //可交互对象
     private Interactable interactable;
 
     //-------------------------------------------------
     void Awake()
     {
-        textMesh = GetComponentInChildren<TextMesh>();
+        //textMesh = GetComponentInChildren<TextMesh>();
         textMesh.text = "无手柄悬停！";
 
         interactable = this.GetComponent<Interactable>();
     }
 
 
+
     //-------------------------------------------------
-    // Called when a Hand starts hovering over this object
+    // 当手开始悬停在可交互物体上，被调用一次
     //-------------------------------------------------
     private void OnHandHoverBegin(Hand hand)
     {
@@ -35,7 +41,7 @@ public class SampleInteractable : MonoBehaviour {
 
 
     //-------------------------------------------------
-    // Called when a Hand stops hovering over this object
+    // 当手结束悬停在可交互物体上，被调用一次
     //-------------------------------------------------
     private void OnHandHoverEnd(Hand hand)
     {
@@ -44,43 +50,45 @@ public class SampleInteractable : MonoBehaviour {
 
 
     //-------------------------------------------------
-    // Called every Update() while a Hand is hovering over this object
+    // 当手一直悬停在可交互物体上，被每帧调用
     //-------------------------------------------------
     private void HandHoverUpdate(Hand hand)
     {
-        GrabTypes startingGrabType = hand.GetGrabStarting();
-        bool isGrabEnding = hand.IsGrabEnding(this.gameObject);
+        GrabTypes startingGrabType = hand.GetGrabStarting(); //获取手柄进行抓取的方式
+
+        bool isGrabEnding = hand.IsGrabEnding(this.gameObject); //获取手柄是否结束抓取
 
         if (interactable.attachedToHand == null && startingGrabType != GrabTypes.None)
         {
-            // Save our position/rotation so that we can restore it when we detach
+            // 保存位置/旋转，当分离时，以便可以恢复它。
             oldPosition = transform.position;
             oldRotation = transform.rotation;
 
-            // Call this to continue receiving HandHoverUpdate messages,
-            // and prevent the hand from hovering over anything else
+           
+            //锁定该交互物，避免再悬停到其他物体上，保证一次悬停锁定一个可交互的物体
             hand.HoverLock(interactable);
 
-            // Attach this object to the hand
+            // 附加该物体到手上
             hand.AttachObject(gameObject, startingGrabType, attachmentFlags);
         }
         else if (isGrabEnding)
         {
-            // Detach this object from the hand
+            // 从手上分离该物体
             hand.DetachObject(gameObject);
 
-            // Call this to undo HoverLock
+            // 解除对该物体的悬停锁定
             hand.HoverUnlock(interactable);
 
-            // Restore position/rotation
+            // 恢复分离的物体到原来的位置
             transform.position = oldPosition;
             transform.rotation = oldRotation;
         }
     }
 
 
+
     //-------------------------------------------------
-    // Called when this GameObject becomes attached to the hand
+    // 当可交互物体刚被手抓取附着时，被调用一次
     //-------------------------------------------------
     private void OnAttachedToHand(Hand hand)
     {
@@ -90,7 +98,7 @@ public class SampleInteractable : MonoBehaviour {
 
 
     //-------------------------------------------------
-    // Called when this GameObject is detached from the hand
+    // 当可交互物体刚被手释放分离时，被调用一次
     //-------------------------------------------------
     private void OnDetachedFromHand(Hand hand)
     {
@@ -98,8 +106,9 @@ public class SampleInteractable : MonoBehaviour {
     }
 
 
+
     //-------------------------------------------------
-    // Called every Update() while this GameObject is attached to the hand
+    //当可交互物体刚被手一直抓取附着时，被每帧调用
     //-------------------------------------------------
     private void HandAttachedUpdate(Hand hand)
     {
@@ -108,7 +117,7 @@ public class SampleInteractable : MonoBehaviour {
 
 
     //-------------------------------------------------
-    // Called when this attached GameObject becomes the primary attached object
+    // 当附加的GameObject成为主要附加对象时调用调用一次(就是说附加了很多物体到附加物栈中，到该物体成为栈顶时，调用一次)
     //-------------------------------------------------
     private void OnHandFocusAcquired(Hand hand)
     {
@@ -116,7 +125,7 @@ public class SampleInteractable : MonoBehaviour {
 
 
     //-------------------------------------------------
-    // Called when another attached GameObject becomes the primary attached object
+    // 当这个主要附加GameObject不再是栈顶对象时调用一次
     //-------------------------------------------------
     private void OnHandFocusLost(Hand hand)
     {
