@@ -62,7 +62,8 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void OnButtonClick()
 		{
-			onHandClick.Invoke( currentHand );
+            Debug.Log(currentHand.handType);
+			onHandClick.Invoke(currentHand);
 		}
 	}
 
